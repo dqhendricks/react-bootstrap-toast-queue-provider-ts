@@ -3,6 +3,7 @@ import { useState, createContext } from "react";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
+const TOAST_POSITION = "top-end";
 const DEFAULT_DURATION = 3000;
 const MAX_TOASTS = 10;
 
@@ -79,7 +80,7 @@ export function ToastQueueProvider({ children }: ToastQueueProvider) {
   return (
     <ToastQueueContext.Provider value={{ createToast }}>
       {children}
-      <ToastContainer className="p-3" position="bottom-end">
+      <ToastContainer className="p-3" position={TOAST_POSITION}>
         {queue.map((toast: ToastData) => (
           <Toast
             key={toast.id}
