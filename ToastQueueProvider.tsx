@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, PropsWithChildren } from "react";
 
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
@@ -6,10 +6,6 @@ import ToastContainer from "react-bootstrap/ToastContainer";
 const TOAST_POSITION = "top-end";
 const DEFAULT_DURATION = 3000;
 const MAX_TOASTS = 10;
-
-interface ToastQueueProvider {
-  children: React.ReactNode;
-}
 
 // color variants accepted by react-bootstrap/Toast
 type BootstrapVariant =
@@ -45,7 +41,7 @@ export const ToastQueueContext = createContext<ToastQueueContext>({
 });
 
 // wrap children in provider component, allowing them to use the context function
-export function ToastQueueProvider({ children }: ToastQueueProvider) {
+export function ToastQueueProvider({ children }: PropsWithChildren) {
   const [queue, setQueue] = useState<Array<ToastData>>([]);
 
   function createToast(toastData: Omit<ToastData, "id" | "show">) {
