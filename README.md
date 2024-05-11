@@ -9,8 +9,8 @@ For a working example, view the code sandbox [here](https://codesandbox.io/p/dev
 
 *1) Wrap any children that need to use the Toast Queue Provider*
 ```
-import ToastQueueProvider from "./components/ToastQueueProvider";
-import ExampleConsumer from "./components/ExampleConsumer";
+import ToastQueueProvider from "./components/ToastQueueProvider.tsx";
+import ExampleConsumer from "./components/ExampleConsumer.tsx";
 
 export default function App() {
   return (
@@ -25,7 +25,7 @@ export default function App() {
 ```
 import { useContext } from "react";
 
-import { ToastQueueContext } from "./ToastQueueProvider";
+import { ToastQueueContext } from "./ToastQueueProvider.tsx";
 
 export default function ExampleConsumer() {
   const { createToast } = useContext(ToastQueueContext);
