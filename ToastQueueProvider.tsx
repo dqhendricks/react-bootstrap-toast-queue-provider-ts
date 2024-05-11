@@ -58,7 +58,7 @@ export function ToastQueueProvider({ children }: PropsWithChildren) {
   }
 
   // begins toast close animation
-  function closeToast(id: number) {
+  function closeToast(id: ToastData['id']) {
     setQueue((currentQueue: ToastData[]) =>
       currentQueue.map((toast) =>
         toast.id === id ? { ...toast, show: false } : toast,
@@ -67,7 +67,7 @@ export function ToastQueueProvider({ children }: PropsWithChildren) {
   }
 
   // removes toast from queue once close animation complete
-  function removeToast(id: number) {
+  function removeToast(id: ToastData['id']) {
     setQueue((currentQueue: ToastData[]) =>
       currentQueue.filter((toast) => toast.id !== id),
     );
