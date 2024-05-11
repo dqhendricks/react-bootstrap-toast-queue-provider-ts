@@ -3,11 +3,21 @@ import { useState, createContext, PropsWithChildren } from "react";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
-const TOAST_POSITION = "top-end";
+const TOAST_PLACEMENT: BootstrapPlacement = "bottom-end";
 const DEFAULT_DURATION = 3000;
 const MAX_TOASTS = 10;
 
-// color variants accepted by react-bootstrap/Toast
+type BootstrapPlacement =
+  | "top-start"
+  | "top-center"
+  | "top-end"
+  | "middle-start"
+  | "middle-center"
+  | "middle-end"
+  | "bottom-start"
+  | "bottom-center"
+  | "bottom-end";
+
 type BootstrapVariant =
   | "primary"
   | "secondary"
@@ -76,7 +86,7 @@ export function ToastQueueProvider({ children }: PropsWithChildren) {
   return (
     <ToastQueueContext.Provider value={{ createToast }}>
       {children}
-      <ToastContainer className="p-3" position={TOAST_POSITION}>
+      <ToastContainer className="p-3" position={TOAST_PLACEMENT}>
         {queue.map((toast: ToastData) => (
           <Toast
             key={toast.id}
