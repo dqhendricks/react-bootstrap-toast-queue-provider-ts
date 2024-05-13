@@ -7,7 +7,7 @@ For a working example, view the code sandbox [here](https://codesandbox.io/p/dev
 
 **Examples usage:**
 
-*1) Wrap any children that need to use the Toast Queue Provider*
+*1) Wrap any children that need to use the Toast Queue Provider. Available props { postion, autohideDelay, maxToasts }.*
 ```
 import ToastQueueProvider from "./components/ToastQueueProvider.tsx";
 import ExampleConsumer from "./components/ExampleConsumer.tsx";
