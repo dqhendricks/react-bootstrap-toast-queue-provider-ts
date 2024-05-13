@@ -3,9 +3,17 @@ import { useState, createContext, PropsWithChildren } from "react";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
-const TOAST_PLACEMENT: BootstrapPlacement = "bottom-end";
-const DEFAULT_DURATION = 3000;
-const MAX_TOASTS = 10;
+const defaultProps: ToastQueueProvider = {
+  position: "bottom-end",
+  autohideDelay: 3000,
+  maxToasts: 10,
+};
+
+interface ToastQueueProvider {
+  position: BootstrapPlacement;
+  autohideDelay: number;
+  maxToasts: number;
+}
 
 type BootstrapPlacement =
   | "top-start"
@@ -34,14 +42,14 @@ interface ToastData {
   title: string;
   body: string;
   autohide?: boolean;
-  variant?: BootstrapVariant;
+  bg?: BootstrapVariant;
 }
 
 interface ToastQueueContext {
   createToast: (toastData: Omit<ToastData, "id" | "show">) => void;
 }
 
-// context provides createToast({ title, body, autohide = true, variant = null }) function
+// context provides createToast({ title, body, autohide = true, bg = undefined }) function
 export const ToastQueueContext = createContext<ToastQueueContext>({
   createToast: () => {
     throw new Error(
@@ -51,11 +59,17 @@ export const ToastQueueContext = createContext<ToastQueueContext>({
 });
 
 // wrap children in provider component, allowing them to use the context function
-export function ToastQueueProvider({ children }: PropsWithChildren) {
+export function ToastQueueProvider(
+  props: PropsWithChildren<ToastQueueProvider>,
+) {
   const [queue, setQueue] = useState<Array<ToastData>>([]);
+  const { children, position, autohideDelay, maxToasts } = {
+    ...defaultProps,
+    ...props,
+  };
 
   function createToast(toastData: Omit<ToastData, "id" | "show">) {
-    if (queue.length >= MAX_TOASTS) return;
+    if (queue.length >= maxToasts) return;
     setQueue((previousQueue: ToastData[]) => [
       ...previousQueue,
       {
@@ -86,16 +100,16 @@ export function ToastQueueProvider({ children }: PropsWithChildren) {
   return (
     <ToastQueueContext.Provider value={{ createToast }}>
       {children}
-      <ToastContainer className="p-3" position={TOAST_PLACEMENT}>
+      <ToastContainer className="p-3" position={position}>
         {queue.map((toast: ToastData) => (
           <Toast
             key={toast.id}
             show={toast.show}
             onClose={() => closeToast(toast.id)}
             onExited={() => removeToast(toast.id)}
-            delay={DEFAULT_DURATION}
+            delay={autohideDelay}
             autohide={toast.autohide}
-            bg={toast?.variant}
+            bg={toast?.bg}
           >
             <Toast.Header>
               <strong className="me-auto">{toast.title}</strong>
