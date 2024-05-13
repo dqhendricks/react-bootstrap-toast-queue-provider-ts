@@ -5,7 +5,7 @@ This TS react component will allow you to queue multiple react-bootstrap Toast c
 
 For a working example, view the code sandbox [here](https://codesandbox.io/p/devbox/react-bootstrap-toast-queue-provider-ts-s3drrq), or see below.
 
-**Examples usage:**
+**Example usage:**
 
 *1) Wrap any children that need to use the Toast Queue Provider. Available props { postion, autohideDelay, maxToasts }.*
 ```
