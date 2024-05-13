@@ -21,7 +21,7 @@ export default function App() {
 }
 ```
 
-*2) Child components may import and use context to gain access to `createToast({ title, body, autohide = true, variant = null })` function*
+*2) Child components may import and use context to gain access to `createToast({ title, body, autohide = true, bg = undefined })` function*
 ```
 import { useContext } from "react";
 
