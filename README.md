@@ -9,7 +9,7 @@ For a working example, view the code sandbox [here](https://codesandbox.io/p/dev
 
 *1) Wrap any children that need to use the Toast Queue Provider. Available props { postion, autohideDelay, maxToasts }.*
 ```
-import ToastQueueProvider from "./components/ToastQueueProvider.tsx";
+import ToastQueueProvider from "./contexts/ToastQueueProvider.tsx";
 import ExampleConsumer from "./components/ExampleConsumer.tsx";
 
 export default function App() {
@@ -25,7 +25,7 @@ export default function App() {
 ```
 import { useContext } from "react";
 
-import { ToastQueueContext } from "./ToastQueueProvider.tsx";
+import { ToastQueueContext } from "../contexts/ToastQueueProvider.tsx";
 
 export default function ExampleConsumer() {
   const { createToast } = useContext(ToastQueueContext);
