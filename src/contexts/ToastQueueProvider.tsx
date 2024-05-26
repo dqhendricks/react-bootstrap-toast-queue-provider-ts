@@ -1,4 +1,4 @@
-import { useState, createContext, PropsWithChildren } from "react";
+import { useState, createContext, useContext, useCallback, PropsWithChildren } from "react";
 
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
@@ -6,13 +6,11 @@ import ToastContainer from "react-bootstrap/ToastContainer";
 const defaultProps: ToastQueueProvider = {
   position: "bottom-end",
   autohideDelay: 3000,
-  maxToasts: 10,
 };
 
 interface ToastQueueProvider {
   position: BootstrapPlacement;
   autohideDelay: number;
-  maxToasts: number;
 }
 
 type BootstrapPlacement =
@@ -63,13 +61,12 @@ export function ToastQueueProvider(
   props: PropsWithChildren<ToastQueueProvider>,
 ) {
   const [queue, setQueue] = useState<Array<ToastData>>([]);
-  const { children, position, autohideDelay, maxToasts } = {
+  const { children, position, autohideDelay } = {
     ...defaultProps,
     ...props,
   };
 
-  function createToast(toastData: Omit<ToastData, "id" | "show">) {
-    if (queue.length >= maxToasts) return;
+  const createToast = useCallback(function (toastData: Omit<ToastData, "id" | "show">) {
     setQueue((previousQueue: ToastData[]) => [
       ...previousQueue,
       {
@@ -79,7 +76,7 @@ export function ToastQueueProvider(
         ...toastData,
       },
     ]);
-  }
+  }, []);
 
   // begins toast close animation
   function closeToast(id: ToastData["id"]) {
