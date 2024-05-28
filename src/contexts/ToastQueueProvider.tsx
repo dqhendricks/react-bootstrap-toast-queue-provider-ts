@@ -48,9 +48,7 @@ interface ToastQueueContext {
 }
 
 // context provides createToast({ title, body, autohide = true, bg = undefined }) function
-const ToastQueueContext = createContext<ToastQueueContext>({
-  createToast: () => {},
-});
+const ToastQueueContext = createContext<ToastQueueContext | null>(null);
 
 // wrap children in provider component, allowing them to use the context function
 export function ToastQueueProvider(
@@ -118,7 +116,7 @@ export function ToastQueueProvider(
 // context provides createToast({ title, body, autohide = true, bg = undefined }) function
 ToastQueueProvider.useToastQueue = function () {
   const context = useContext(ToastQueueContext);
-  if (context === undefined)
+  if (context === null)
     throw new Error(
       "ToastQueueContext cannot be used outside of ToastQueueProvider",
     );
