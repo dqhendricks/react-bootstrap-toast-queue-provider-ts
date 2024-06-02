@@ -91,7 +91,7 @@ export function ToastQueueProvider(
   return (
     <ToastQueueContext.Provider value={{ createToast }}>
       {children}
-      <ToastContainer className="p-3" position={position}>
+      <ToastContainer className="position-fixed p-3" position={position}>
         {queue.map((toast: ToastData) => (
           <Toast
             key={toast.id}
