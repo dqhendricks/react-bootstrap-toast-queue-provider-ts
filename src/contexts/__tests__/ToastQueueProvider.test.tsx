@@ -2,10 +2,7 @@ import { useContext, PropsWithChildren } from "react";
 import { describe, test, expect, afterEach, vi } from "vitest";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 
-import {
-  ToastQueueProvider,
-  ToastQueueContext,
-} from "../ToastQueueProvider.jsx";
+import { ToastQueueProvider } from "../ToastQueueProvider.jsx";
 
 import type { ToastData } from "../ToastQueueProvider.jsx";
 
@@ -54,7 +51,7 @@ vi.mock("react-bootstrap/Toast", () => ({
 function TestConsumerComponent({
   toastData,
 }: PropsWithChildren<TestConsumerComponent>) {
-  const { createToast } = useContext(ToastQueueContext);
+  const createToast = ToastQueueProvider.useCreateToast();
   return (
     <button
       data-testid="createToastButton"
