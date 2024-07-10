@@ -26,7 +26,7 @@ export default function App() {
 import { ToastQueueProvider } from "../contexts/ToastQueueProvider.tsx";
 
 export default function ExampleConsumer() {
-  const { createToast } = ToastQueueProvider.useCreateToast();
+  const createToast = ToastQueueProvider.useCreateToast();
 
   return (
     <button
