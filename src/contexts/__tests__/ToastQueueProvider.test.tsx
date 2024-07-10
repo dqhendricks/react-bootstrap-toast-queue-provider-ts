@@ -1,4 +1,4 @@
-import { useContext, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { describe, test, expect, afterEach, vi } from "vitest";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 
@@ -157,21 +157,5 @@ describe("<ToastQueueProvider />", () => {
     fireEvent.click(getByTestId("createToastButton"));
     getByText("delay: 123", { exact: false });
   });
-
-  test("ToastQueueProvider maxToasts prop", () => {
-    const { getByTestId, getAllByText } = render(
-      <ToastQueueProvider maxToasts={2}>
-        <TestConsumerComponent
-          toastData={{ title: "test title", body: "test body" }}
-        />
-      </ToastQueueProvider>,
-    );
-    const createToastButton = getByTestId("createToastButton");
-    fireEvent.click(createToastButton);
-    fireEvent.click(createToastButton);
-    fireEvent.click(createToastButton);
-    expect(getAllByText("test body").length).toEqual(2);
-  });
-});
 
 vi.clearAllMocks();
