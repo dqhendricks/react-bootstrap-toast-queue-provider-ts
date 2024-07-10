@@ -4,7 +4,7 @@ import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
 const defaultProps: ToastQueueProvider = {
-  position: "bottom-end",
+  position: "top-end",
   autohideDelay: 3000,
 };
 
@@ -89,7 +89,7 @@ export function ToastQueueProvider(
   }
 
   return (
-    <ToastQueueContext.Provider value={{ createToast }}>
+    <ToastQueueContext.Provider value={ createToast }>
       {children}
       <ToastContainer className="position-fixed p-3" position={position}>
         {queue.map((toast: ToastData) => (
@@ -114,7 +114,7 @@ export function ToastQueueProvider(
 }
 
 // context provides createToast({ title, body, autohide = true, bg = undefined }) function
-ToastQueueProvider.useToastQueue = function () {
+ToastQueueProvider.useCreateToast = function () {
   const context = useContext(ToastQueueContext);
   if (context === null)
     throw new Error(
