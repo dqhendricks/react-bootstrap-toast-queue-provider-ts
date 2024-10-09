@@ -43,9 +43,7 @@ interface ToastData {
   bg?: BootstrapVariant;
 }
 
-interface ToastQueueContext {
-  createToast: (toastData: Omit<ToastData, "id" | "show">) => void;
-}
+const ToastQueueContext = createContext<ToastQueueContext | null>(null);
 
 // context provides createToast({ title, body, autohide = true, bg = undefined }) function
 const ToastQueueContext = createContext<ToastQueueContext | null>(null);
