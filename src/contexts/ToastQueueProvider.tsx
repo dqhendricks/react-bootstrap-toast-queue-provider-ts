@@ -9,8 +9,8 @@ const defaultProps: ToastQueueProvider = {
 };
 
 interface ToastQueueProvider {
-  position: BootstrapPlacement;
-  autohideDelay: number;
+  position?: BootstrapPlacement;
+  autohideDelay?: number;
 }
 
 type BootstrapPlacement =
